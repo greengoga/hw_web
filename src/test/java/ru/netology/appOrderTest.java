@@ -58,8 +58,8 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+99999999999");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
-        String text = form.findElement(By.cssSelector("[data-test-id=name] .input__sub")).getText();
-        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text.trim());
+        String text = form.findElement(By.cssSelector("[data-test-id=name] .input__sub")).getText().trim();
+        assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text);
     }
 
     @Test
@@ -69,15 +69,15 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+првоп95ваор5");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
-        String text = form.findElement(By.cssSelector("[data-test-id=phone] .input__sub")).getText();
-        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text.trim());
+        String text = form.findElement(By.cssSelector("[data-test-id=phone] .input__sub")).getText().trim();
+        assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text);
     }
 
     @Test
     void shouldReturnWarningIfCheckboxUnchecked() {
         WebElement form = driver.findElement(By.cssSelector("form"));
         form.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys("Федор Двинятин");
-        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+99999999");
+        form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+99999999999");
         form.findElement(By.className("button")).click();
         WebElement check = driver.findElement(By.cssSelector(".input_invalid[data-test-id=agreement]"));
         assertTrue(check.isDisplayed());
