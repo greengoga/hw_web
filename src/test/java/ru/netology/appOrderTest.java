@@ -58,8 +58,10 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+99999999999");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
-        String text = form.findElement(By.cssSelector("[data-test-id=name] .input__sub")).getText().trim();
+        WebElement check = driver.findElement(By.cssSelector(".input_invalid[data-test-id=name]"));
+        String text = form.findElement(By.cssSelector(".input_invalid[data-test-id=name] .input__sub")).getText().trim();
         assertEquals("Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.", text);
+        assertTrue(check.isDisplayed());
     }
 
     @Test
@@ -69,8 +71,10 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys("+првоп95ваор5");
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
-        String text = form.findElement(By.cssSelector("[data-test-id=phone] .input__sub")).getText().trim();
+        String text = form.findElement(By.cssSelector(".input_invalid[data-test-id=phone] .input__sub")).getText().trim();
+        WebElement check = driver.findElement(By.cssSelector(".input_invalid[data-test-id=phone]"));
         assertEquals("Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.", text);
+        assertTrue(check.isDisplayed());
     }
 
     @Test
@@ -90,7 +94,9 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = form.findElement(By.cssSelector("[data-test-id=name] .input__sub")).getText();
+        WebElement check = driver.findElement(By.cssSelector(".input_invalid[data-test-id=name]"));
         assertEquals("Поле обязательно для заполнения", text.trim());
+        assertTrue(check.isDisplayed());
     }
 
     @Test
@@ -100,6 +106,8 @@ class AppOrderTest {
         form.findElement(By.cssSelector("[data-test-id=agreement]")).click();
         form.findElement(By.className("button")).click();
         String text = form.findElement(By.cssSelector("[data-test-id=phone] .input__sub")).getText();
+        WebElement check = driver.findElement(By.cssSelector(".input_invalid[data-test-id=phone]"));
+        assertTrue(check.isDisplayed());
         assertEquals("Поле обязательно для заполнения", text.trim());
     }
 }
